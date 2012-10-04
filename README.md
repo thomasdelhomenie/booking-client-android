@@ -1,5 +1,7 @@
+* Eclipse
+- Download and extract http://code.google.com/p/google-api-java-client/downloads/list
+- Create GAPI_JAVA_CLIENT_LIB variable that points to the extracted lib directory
 
-* Copy this libs into $project_home/libs
 commons-logging-1.1.1.jar
 google-api-client-1.11.0-beta.jar
 google-http-client-1.11.0-beta.jar
