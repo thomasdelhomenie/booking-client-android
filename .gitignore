@@ -1,0 +1,15 @@
+*.DS_Store
+#.project
+#.classpath
+target/
+.settings/
+
+# Android generated files
+bin/
+gen/
+libs/
+
+# Package Files #
+*.jar
+*.war
+*.ear
