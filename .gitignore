@@ -7,9 +7,8 @@ target/
 # Android generated files
 bin/
 gen/
-libs/
+
 
 # Package Files #
-*.jar
 *.war
 *.ear
