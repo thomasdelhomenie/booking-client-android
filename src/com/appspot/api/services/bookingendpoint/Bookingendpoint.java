@@ -11,8 +11,8 @@
  */
 /*
  * This file was generated.
- *  with google-apis-code-generator 1.2.0 (build: 2012-09-27 15:13:35 UTC)
- *  on 2012-09-28 at 21:53:06 UTC 
+ *  with google-apis-code-generator 1.2.0 (build: 2012-10-03 02:48:15 UTC)
+ *  on 2012-10-16 at 21:43:19 UTC 
  */
 
 package com.appspot.api.services.bookingendpoint;
@@ -78,7 +78,7 @@ public class Bookingendpoint extends GoogleClient {
    *
    * @since 1.7
    */
-  public static final String DEFAULT_ROOT_URL = "http://10.0.2.2:8888/_ah/api/";
+  public static final String DEFAULT_ROOT_URL = "https://cloud-booking.appspot.com/_ah/api/";
 
   /**
    * The default encoded service path of the service. This is determined when the library is
@@ -211,25 +211,108 @@ public class Bookingendpoint extends GoogleClient {
    }
 
   /**
-   * An accessor for creating requests from the Hotel collection.
+   * An accessor for creating requests from the Hotels collection.
    *
    * The typical use is:<pre>
    *   {@code Bookingendpoint bookingendpoint = new Bookingendpoint(...);}
-   *   {@code Bookingendpoint.Hotel.List request = bookingendpoint.hotel().list(parameters ...)}</pre>
+   *   {@code Bookingendpoint.Hotels.List request = bookingendpoint.hotels().list(parameters ...)}</pre>
    *
    * @return the resource collection
    */
-  public Hotel hotel() {
-    return new Hotel();
+  public Hotels hotels() {
+    return new Hotels();
   }
 
   /**
-   * The "hotel" collection of methods.
+   * The "hotels" collection of methods.
    */
-  public class Hotel {
+  public class Hotels {
 
     /**
-     * Create a request for the method "hotel.search".
+     * Create a request for the method "hotels.insert".
+     *
+     * This request holds the parameters needed by the the bookingendpoint server.  After setting any
+     * optional parameters, call the {@link Insert#execute()} method to invoke the remote operation.
+     *
+     * @param content the {@link com.appspot.api.services.bookingendpoint.model.Hotel}
+     * @return the request
+     * @throws IOException if the initialization of the request fails
+     */
+    public Insert insert(com.appspot.api.services.bookingendpoint.model.Hotel content) throws IOException {
+      Insert result = new Insert(content);
+      initialize(result);
+      return result;
+    }
+
+    public class Insert extends BookingendpointRequest {
+
+      private static final String REST_PATH = "hotel";
+
+      /**
+       * Internal constructor.  Use the convenience method instead.
+       */
+      Insert(com.appspot.api.services.bookingendpoint.model.Hotel content) {
+        super(Bookingendpoint.this, HttpMethod.POST, REST_PATH, content);
+        Preconditions.checkNotNull(content);
+      }
+
+      /**
+       * Sends the "insert" request to the Bookingendpoint server.
+       *
+       * @return the {@link com.appspot.api.services.bookingendpoint.model.Hotel} response
+       * @throws IOException if the request fails
+       */
+      public com.appspot.api.services.bookingendpoint.model.Hotel execute() throws IOException {
+        HttpResponse response = executeUnparsed();
+        com.appspot.api.services.bookingendpoint.model.Hotel result = response.parseAs(
+            com.appspot.api.services.bookingendpoint.model.Hotel.class);
+        result.setResponseHeaders(response.getHeaders());
+        return result;
+      }
+
+      /**
+       * Queues the "insert" request to the Bookingendpoint server into the given batch request.
+       *
+       * <p>
+       * Example usage:
+       * </p>
+       *
+       * <pre>
+         request.queue(batchRequest, new JsonBatchCallback&lt;Hotel&gt;() {
+
+           public void onSuccess(Hotel content, GoogleHeaders responseHeaders) {
+             log("Success");
+           }
+
+           public void onFailure(GoogleJsonError e, GoogleHeaders responseHeaders) {
+             log(e.getMessage());
+           }
+         });
+       * </pre>
+       *
+       * @param batch a single batch of requests
+       * @param callback batch callback
+       * @since 1.6
+       */
+      public void queue(com.google.api.client.googleapis.batch.BatchRequest batch,
+          com.google.api.client.googleapis.batch.json.JsonBatchCallback<com.appspot.api.services.bookingendpoint.model.Hotel> callback)
+          throws IOException {
+        batch.queue(buildHttpRequest(), com.appspot.api.services.bookingendpoint.model.Hotel.class,
+            com.google.api.client.googleapis.json.GoogleJsonErrorContainer.class, callback);
+      }
+
+      /**
+       * @since 1.7
+       */
+      @Override
+      public Insert setFields(String fields) {
+        super.setFields(fields);
+        return this;
+      }
+
+    }
+    /**
+     * Create a request for the method "hotels.search".
      *
      * This request holds the parameters needed by the the bookingendpoint server.  After setting any
      * optional parameters, call the {@link Search#execute()} method to invoke the remote operation.
@@ -326,26 +409,490 @@ public class Bookingendpoint extends GoogleClient {
       }
 
     }
+    /**
+     * Create a request for the method "hotels.get".
+     *
+     * This request holds the parameters needed by the the bookingendpoint server.  After setting any
+     * optional parameters, call the {@link Get#execute()} method to invoke the remote operation.
+     *
+     * @param id
+     * @return the request
+     * @throws IOException if the initialization of the request fails
+     */
+    public Get get(String id) throws IOException {
+      Get result = new Get(id);
+      initialize(result);
+      return result;
+    }
 
-  }
+    public class Get extends BookingendpointRequest {
 
-  /**
-   * An accessor for creating requests from the Hotels collection.
-   *
-   * The typical use is:<pre>
-   *   {@code Bookingendpoint bookingendpoint = new Bookingendpoint(...);}
-   *   {@code Bookingendpoint.Hotels.List request = bookingendpoint.hotels().list(parameters ...)}</pre>
-   *
-   * @return the resource collection
-   */
-  public Hotels hotels() {
-    return new Hotels();
-  }
+      private static final String REST_PATH = "hotel/{id}";
 
-  /**
-   * The "hotels" collection of methods.
-   */
-  public class Hotels {
+      /**
+       * Internal constructor.  Use the convenience method instead.
+       */
+      Get(String id) {
+        super(Bookingendpoint.this, HttpMethod.GET, REST_PATH, null);
+        this.id = Preconditions.checkNotNull(id, "Required parameter id must be specified.");
+      }
+
+      /**
+       * Sends the "get" request to the Bookingendpoint server.
+       *
+       * @return the {@link com.appspot.api.services.bookingendpoint.model.Hotel} response
+       * @throws IOException if the request fails
+       */
+      public com.appspot.api.services.bookingendpoint.model.Hotel execute() throws IOException {
+        HttpResponse response = executeUnparsed();
+        com.appspot.api.services.bookingendpoint.model.Hotel result = response.parseAs(
+            com.appspot.api.services.bookingendpoint.model.Hotel.class);
+        result.setResponseHeaders(response.getHeaders());
+        return result;
+      }
+
+      /**
+       * Queues the "get" request to the Bookingendpoint server into the given batch request.
+       *
+       * <p>
+       * Example usage:
+       * </p>
+       *
+       * <pre>
+         request.queue(batchRequest, new JsonBatchCallback&lt;Hotel&gt;() {
+
+           public void onSuccess(Hotel content, GoogleHeaders responseHeaders) {
+             log("Success");
+           }
+
+           public void onFailure(GoogleJsonError e, GoogleHeaders responseHeaders) {
+             log(e.getMessage());
+           }
+         });
+       * </pre>
+       *
+       * @param batch a single batch of requests
+       * @param callback batch callback
+       * @since 1.6
+       */
+      public void queue(com.google.api.client.googleapis.batch.BatchRequest batch,
+          com.google.api.client.googleapis.batch.json.JsonBatchCallback<com.appspot.api.services.bookingendpoint.model.Hotel> callback)
+          throws IOException {
+        batch.queue(buildHttpRequest(), com.appspot.api.services.bookingendpoint.model.Hotel.class,
+            com.google.api.client.googleapis.json.GoogleJsonErrorContainer.class, callback);
+      }
+
+      /**
+       * @since 1.7
+       */
+      @Override
+      public Get setFields(String fields) {
+        super.setFields(fields);
+        return this;
+      }
+
+      @com.google.api.client.util.Key
+      private String id;
+
+      /**
+
+       */
+      public String getId() {
+        return id;
+      }
+
+      public Get setId(String id) {
+        this.id = id;
+        return this;
+      }
+
+    }
+    /**
+     * Create a request for the method "hotels.list".
+     *
+     * This request holds the parameters needed by the the bookingendpoint server.  After setting any
+     * optional parameters, call the {@link List#execute()} method to invoke the remote operation.
+     *
+     * @return the request
+     * @throws IOException if the initialization of the request fails
+     */
+    public List list() throws IOException {
+      List result = new List();
+      initialize(result);
+      return result;
+    }
+
+    public class List extends BookingendpointRequest {
+
+      private static final String REST_PATH = "hotel";
+
+      /**
+       * Internal constructor.  Use the convenience method instead.
+       */
+      List() {
+        super(Bookingendpoint.this, HttpMethod.GET, REST_PATH, null);
+      }
+
+      /**
+       * Sends the "list" request to the Bookingendpoint server.
+       *
+       * @return the {@link com.appspot.api.services.bookingendpoint.model.CollectionResponseHotel} response
+       * @throws IOException if the request fails
+       */
+      public com.appspot.api.services.bookingendpoint.model.CollectionResponseHotel execute() throws IOException {
+        HttpResponse response = executeUnparsed();
+        com.appspot.api.services.bookingendpoint.model.CollectionResponseHotel result = response.parseAs(
+            com.appspot.api.services.bookingendpoint.model.CollectionResponseHotel.class);
+        result.setResponseHeaders(response.getHeaders());
+        return result;
+      }
+
+      /**
+       * Queues the "list" request to the Bookingendpoint server into the given batch request.
+       *
+       * <p>
+       * Example usage:
+       * </p>
+       *
+       * <pre>
+         request.queue(batchRequest, new JsonBatchCallback&lt;CollectionResponseHotel&gt;() {
+
+           public void onSuccess(CollectionResponseHotel content, GoogleHeaders responseHeaders) {
+             log("Success");
+           }
+
+           public void onFailure(GoogleJsonError e, GoogleHeaders responseHeaders) {
+             log(e.getMessage());
+           }
+         });
+       * </pre>
+       *
+       * @param batch a single batch of requests
+       * @param callback batch callback
+       * @since 1.6
+       */
+      public void queue(com.google.api.client.googleapis.batch.BatchRequest batch,
+          com.google.api.client.googleapis.batch.json.JsonBatchCallback<com.appspot.api.services.bookingendpoint.model.CollectionResponseHotel> callback)
+          throws IOException {
+        batch.queue(buildHttpRequest(), com.appspot.api.services.bookingendpoint.model.CollectionResponseHotel.class,
+            com.google.api.client.googleapis.json.GoogleJsonErrorContainer.class, callback);
+      }
+
+      /**
+       * @since 1.7
+       */
+      @Override
+      public List setFields(String fields) {
+        super.setFields(fields);
+        return this;
+      }
+
+      @com.google.api.client.util.Key
+      private String cursor;
+
+      /**
+
+       */
+      public String getCursor() {
+        return cursor;
+      }
+
+      public List setCursor(String cursor) {
+        this.cursor = cursor;
+        return this;
+      }
+
+      @com.google.api.client.util.Key
+      private Integer limit;
+
+      /**
+
+       */
+      public Integer getLimit() {
+        return limit;
+      }
+
+      public List setLimit(Integer limit) {
+        this.limit = limit;
+        return this;
+      }
+
+    }
+    /**
+     * Create a request for the method "hotels.update".
+     *
+     * This request holds the parameters needed by the the bookingendpoint server.  After setting any
+     * optional parameters, call the {@link Update#execute()} method to invoke the remote operation.
+     *
+     * @param content the {@link com.appspot.api.services.bookingendpoint.model.Hotel}
+     * @return the request
+     * @throws IOException if the initialization of the request fails
+     */
+    public Update update(com.appspot.api.services.bookingendpoint.model.Hotel content) throws IOException {
+      Update result = new Update(content);
+      initialize(result);
+      return result;
+    }
+
+    public class Update extends BookingendpointRequest {
+
+      private static final String REST_PATH = "hotel";
+
+      /**
+       * Internal constructor.  Use the convenience method instead.
+       */
+      Update(com.appspot.api.services.bookingendpoint.model.Hotel content) {
+        super(Bookingendpoint.this, HttpMethod.PUT, REST_PATH, content);
+        Preconditions.checkNotNull(content);
+      }
+
+      /**
+       * Sends the "update" request to the Bookingendpoint server.
+       *
+       * @return the {@link com.appspot.api.services.bookingendpoint.model.Hotel} response
+       * @throws IOException if the request fails
+       */
+      public com.appspot.api.services.bookingendpoint.model.Hotel execute() throws IOException {
+        HttpResponse response = executeUnparsed();
+        com.appspot.api.services.bookingendpoint.model.Hotel result = response.parseAs(
+            com.appspot.api.services.bookingendpoint.model.Hotel.class);
+        result.setResponseHeaders(response.getHeaders());
+        return result;
+      }
+
+      /**
+       * Queues the "update" request to the Bookingendpoint server into the given batch request.
+       *
+       * <p>
+       * Example usage:
+       * </p>
+       *
+       * <pre>
+         request.queue(batchRequest, new JsonBatchCallback&lt;Hotel&gt;() {
+
+           public void onSuccess(Hotel content, GoogleHeaders responseHeaders) {
+             log("Success");
+           }
+
+           public void onFailure(GoogleJsonError e, GoogleHeaders responseHeaders) {
+             log(e.getMessage());
+           }
+         });
+       * </pre>
+       *
+       * @param batch a single batch of requests
+       * @param callback batch callback
+       * @since 1.6
+       */
+      public void queue(com.google.api.client.googleapis.batch.BatchRequest batch,
+          com.google.api.client.googleapis.batch.json.JsonBatchCallback<com.appspot.api.services.bookingendpoint.model.Hotel> callback)
+          throws IOException {
+        batch.queue(buildHttpRequest(), com.appspot.api.services.bookingendpoint.model.Hotel.class,
+            com.google.api.client.googleapis.json.GoogleJsonErrorContainer.class, callback);
+      }
+
+      /**
+       * @since 1.7
+       */
+      @Override
+      public Update setFields(String fields) {
+        super.setFields(fields);
+        return this;
+      }
+
+    }
+    /**
+     * Create a request for the method "hotels.patch".
+     *
+     * This request holds the parameters needed by the the bookingendpoint server.  After setting any
+     * optional parameters, call the {@link Patch#execute()} method to invoke the remote operation.
+     *
+     * @param id
+     * @return the request
+     * @throws IOException if the initialization of the request fails
+     */
+    public Patch patch(String id) throws IOException {
+      Patch result = new Patch(id);
+      initialize(result);
+      return result;
+    }
+
+    public class Patch extends BookingendpointRequest {
+
+      private static final String REST_PATH = "hotel";
+
+      /**
+       * Internal constructor.  Use the convenience method instead.
+       */
+      Patch(String id) {
+        super(Bookingendpoint.this, HttpMethod.PATCH, REST_PATH, null);
+        this.id = Preconditions.checkNotNull(id, "Required parameter id must be specified.");
+      }
+
+      /**
+       * Sends the "patch" request to the Bookingendpoint server.
+       *
+       * @throws IOException if the request fails
+       */
+      public void execute() throws IOException {
+        HttpResponse response = executeUnparsed();
+        response.ignore();
+      }
+
+      /**
+       * Queues the "patch" request to the Bookingendpoint server into the given batch request.
+       *
+       * <p>
+       * Example usage:
+       * </p>
+       *
+       * <pre>
+         request.queue(batchRequest, new JsonBatchCallback&lt;Void&gt;() {
+
+           public void onSuccess(Void content, GoogleHeaders responseHeaders) {
+             log("Success");
+           }
+
+           public void onFailure(GoogleJsonError e, GoogleHeaders responseHeaders) {
+             log(e.getMessage());
+           }
+         });
+       * </pre>
+       *
+       * @param batch a single batch of requests
+       * @param callback batch callback
+       * @since 1.6
+       */
+      public void queue(com.google.api.client.googleapis.batch.BatchRequest batch,
+          com.google.api.client.googleapis.batch.json.JsonBatchCallback<Void> callback)
+          throws IOException {
+        batch.queue(buildHttpRequest(), Void.class,
+            com.google.api.client.googleapis.json.GoogleJsonErrorContainer.class, callback);
+      }
+
+      /**
+       * @since 1.7
+       */
+      @Override
+      public Patch setFields(String fields) {
+        super.setFields(fields);
+        return this;
+      }
+
+      @com.google.api.client.util.Key
+      private String id;
+
+      /**
+
+       */
+      public String getId() {
+        return id;
+      }
+
+      public Patch setId(String id) {
+        this.id = id;
+        return this;
+      }
+
+    }
+    /**
+     * Create a request for the method "hotels.delete".
+     *
+     * This request holds the parameters needed by the the bookingendpoint server.  After setting any
+     * optional parameters, call the {@link Delete#execute()} method to invoke the remote operation.
+     *
+     * @param id
+     * @return the request
+     * @throws IOException if the initialization of the request fails
+     */
+    public Delete delete(String id) throws IOException {
+      Delete result = new Delete(id);
+      initialize(result);
+      return result;
+    }
+
+    public class Delete extends BookingendpointRequest {
+
+      private static final String REST_PATH = "hotel/{id}";
+
+      /**
+       * Internal constructor.  Use the convenience method instead.
+       */
+      Delete(String id) {
+        super(Bookingendpoint.this, HttpMethod.DELETE, REST_PATH, null);
+        this.id = Preconditions.checkNotNull(id, "Required parameter id must be specified.");
+      }
+
+      /**
+       * Sends the "delete" request to the Bookingendpoint server.
+       *
+       * @return the {@link com.appspot.api.services.bookingendpoint.model.Hotel} response
+       * @throws IOException if the request fails
+       */
+      public com.appspot.api.services.bookingendpoint.model.Hotel execute() throws IOException {
+        HttpResponse response = executeUnparsed();
+        com.appspot.api.services.bookingendpoint.model.Hotel result = response.parseAs(
+            com.appspot.api.services.bookingendpoint.model.Hotel.class);
+        result.setResponseHeaders(response.getHeaders());
+        return result;
+      }
+
+      /**
+       * Queues the "delete" request to the Bookingendpoint server into the given batch request.
+       *
+       * <p>
+       * Example usage:
+       * </p>
+       *
+       * <pre>
+         request.queue(batchRequest, new JsonBatchCallback&lt;Hotel&gt;() {
+
+           public void onSuccess(Hotel content, GoogleHeaders responseHeaders) {
+             log("Success");
+           }
+
+           public void onFailure(GoogleJsonError e, GoogleHeaders responseHeaders) {
+             log(e.getMessage());
+           }
+         });
+       * </pre>
+       *
+       * @param batch a single batch of requests
+       * @param callback batch callback
+       * @since 1.6
+       */
+      public void queue(com.google.api.client.googleapis.batch.BatchRequest batch,
+          com.google.api.client.googleapis.batch.json.JsonBatchCallback<com.appspot.api.services.bookingendpoint.model.Hotel> callback)
+          throws IOException {
+        batch.queue(buildHttpRequest(), com.appspot.api.services.bookingendpoint.model.Hotel.class,
+            com.google.api.client.googleapis.json.GoogleJsonErrorContainer.class, callback);
+      }
+
+      /**
+       * @since 1.7
+       */
+      @Override
+      public Delete setFields(String fields) {
+        super.setFields(fields);
+        return this;
+      }
+
+      @com.google.api.client.util.Key
+      private String id;
+
+      /**
+
+       */
+      public String getId() {
+        return id;
+      }
+
+      public Delete setId(String id) {
+        this.id = id;
+        return this;
+      }
+
+    }
 
     /**
      * An accessor for creating requests from the Bookings collection.
@@ -978,12 +1525,12 @@ public class Bookingendpoint extends GoogleClient {
        * optional parameters, call the {@link Delete#execute()} method to invoke the remote operation.
        *
        * @param hotelId
-       * @param id
+       * @param bookingId
        * @return the request
        * @throws IOException if the initialization of the request fails
        */
-      public Delete delete(String hotelId, String id) throws IOException {
-        Delete result = new Delete(hotelId, id);
+      public Delete delete(String hotelId, String bookingId) throws IOException {
+        Delete result = new Delete(hotelId, bookingId);
         initialize(result);
         return result;
       }
@@ -995,10 +1542,10 @@ public class Bookingendpoint extends GoogleClient {
         /**
          * Internal constructor.  Use the convenience method instead.
          */
-        Delete(String hotelId, String id) {
+        Delete(String hotelId, String bookingId) {
           super(Bookingendpoint.this, HttpMethod.DELETE, REST_PATH, null);
           this.hotelId = Preconditions.checkNotNull(hotelId, "Required parameter hotelId must be specified.");
-          this.id = Preconditions.checkNotNull(id, "Required parameter id must be specified.");
+          this.bookingId = Preconditions.checkNotNull(bookingId, "Required parameter bookingId must be specified.");
         }
 
         /**
@@ -1071,17 +1618,17 @@ public class Bookingendpoint extends GoogleClient {
         }
 
         @com.google.api.client.util.Key
-        private String id;
+        private String bookingId;
 
         /**
 
          */
-        public String getId() {
-          return id;
+        public String getBookingId() {
+          return bookingId;
         }
 
-        public Delete setId(String id) {
-          this.id = id;
+        public Delete setBookingId(String bookingId) {
+          this.bookingId = bookingId;
           return this;
         }
 
@@ -1091,303 +1638,33 @@ public class Bookingendpoint extends GoogleClient {
   }
 
   /**
-   * Create a request for the method "updateHotel".
+   * Create a request for the method "dashboard".
    *
    * This request holds the parameters needed by the the bookingendpoint server.  After setting any
-   * optional parameters, call the {@link UpdateHotel#execute()} method to invoke the remote
-   * operation.
-   *
-   * @param content the {@link com.appspot.api.services.bookingendpoint.model.Hotel}
-   * @return the request
-   * @throws IOException if the initialization of the request fails
-   */
-  public UpdateHotel updateHotel(com.appspot.api.services.bookingendpoint.model.Hotel content) throws IOException {
-    UpdateHotel result = new UpdateHotel(content);
-    initialize(result);
-    return result;
-  }
-
-  public class UpdateHotel extends BookingendpointRequest {
-
-    private static final String REST_PATH = "hotel";
-
-    /**
-     * Internal constructor.  Use the convenience method instead.
-     */
-    UpdateHotel(com.appspot.api.services.bookingendpoint.model.Hotel content) {
-      super(Bookingendpoint.this, HttpMethod.PUT, REST_PATH, content);
-      Preconditions.checkNotNull(content);
-    }
-
-    /**
-     * Sends the "updateHotel" request to the Bookingendpoint server.
-     *
-     * @return the {@link com.appspot.api.services.bookingendpoint.model.Hotel} response
-     * @throws IOException if the request fails
-     */
-    public com.appspot.api.services.bookingendpoint.model.Hotel execute() throws IOException {
-      HttpResponse response = executeUnparsed();
-      com.appspot.api.services.bookingendpoint.model.Hotel result = response.parseAs(
-          com.appspot.api.services.bookingendpoint.model.Hotel.class);
-      result.setResponseHeaders(response.getHeaders());
-      return result;
-    }
-
-    /**
-     * Queues the "updateHotel" request to the Bookingendpoint server into the given batch request.
-     *
-     * <p>
-     * Example usage:
-     * </p>
-     *
-     * <pre>
-       request.queue(batchRequest, new JsonBatchCallback&lt;Hotel&gt;() {
-
-         public void onSuccess(Hotel content, GoogleHeaders responseHeaders) {
-           log("Success");
-         }
-
-         public void onFailure(GoogleJsonError e, GoogleHeaders responseHeaders) {
-           log(e.getMessage());
-         }
-       });
-     * </pre>
-     *
-     * @param batch a single batch of requests
-     * @param callback batch callback
-     * @since 1.6
-     */
-    public void queue(com.google.api.client.googleapis.batch.BatchRequest batch,
-        com.google.api.client.googleapis.batch.json.JsonBatchCallback<com.appspot.api.services.bookingendpoint.model.Hotel> callback)
-        throws IOException {
-      batch.queue(buildHttpRequest(), com.appspot.api.services.bookingendpoint.model.Hotel.class,
-          com.google.api.client.googleapis.json.GoogleJsonErrorContainer.class, callback);
-    }
-
-    /**
-     * @since 1.7
-     */
-    @Override
-    public UpdateHotel setFields(String fields) {
-      super.setFields(fields);
-      return this;
-    }
-
-  }
-
-  /**
-   * Create a request for the method "getHotel".
-   *
-   * This request holds the parameters needed by the the bookingendpoint server.  After setting any
-   * optional parameters, call the {@link GetHotel#execute()} method to invoke the remote operation.
-   *
-   * @param id
-   * @return the request
-   * @throws IOException if the initialization of the request fails
-   */
-  public GetHotel getHotel(String id) throws IOException {
-    GetHotel result = new GetHotel(id);
-    initialize(result);
-    return result;
-  }
-
-  public class GetHotel extends BookingendpointRequest {
-
-    private static final String REST_PATH = "hotel/{id}";
-
-    /**
-     * Internal constructor.  Use the convenience method instead.
-     */
-    GetHotel(String id) {
-      super(Bookingendpoint.this, HttpMethod.GET, REST_PATH, null);
-      this.id = Preconditions.checkNotNull(id, "Required parameter id must be specified.");
-    }
-
-    /**
-     * Sends the "getHotel" request to the Bookingendpoint server.
-     *
-     * @return the {@link com.appspot.api.services.bookingendpoint.model.Hotel} response
-     * @throws IOException if the request fails
-     */
-    public com.appspot.api.services.bookingendpoint.model.Hotel execute() throws IOException {
-      HttpResponse response = executeUnparsed();
-      com.appspot.api.services.bookingendpoint.model.Hotel result = response.parseAs(
-          com.appspot.api.services.bookingendpoint.model.Hotel.class);
-      result.setResponseHeaders(response.getHeaders());
-      return result;
-    }
-
-    /**
-     * Queues the "getHotel" request to the Bookingendpoint server into the given batch request.
-     *
-     * <p>
-     * Example usage:
-     * </p>
-     *
-     * <pre>
-       request.queue(batchRequest, new JsonBatchCallback&lt;Hotel&gt;() {
-
-         public void onSuccess(Hotel content, GoogleHeaders responseHeaders) {
-           log("Success");
-         }
-
-         public void onFailure(GoogleJsonError e, GoogleHeaders responseHeaders) {
-           log(e.getMessage());
-         }
-       });
-     * </pre>
-     *
-     * @param batch a single batch of requests
-     * @param callback batch callback
-     * @since 1.6
-     */
-    public void queue(com.google.api.client.googleapis.batch.BatchRequest batch,
-        com.google.api.client.googleapis.batch.json.JsonBatchCallback<com.appspot.api.services.bookingendpoint.model.Hotel> callback)
-        throws IOException {
-      batch.queue(buildHttpRequest(), com.appspot.api.services.bookingendpoint.model.Hotel.class,
-          com.google.api.client.googleapis.json.GoogleJsonErrorContainer.class, callback);
-    }
-
-    /**
-     * @since 1.7
-     */
-    @Override
-    public GetHotel setFields(String fields) {
-      super.setFields(fields);
-      return this;
-    }
-
-    @com.google.api.client.util.Key
-    private String id;
-
-    /**
-
-     */
-    public String getId() {
-      return id;
-    }
-
-    public GetHotel setId(String id) {
-      this.id = id;
-      return this;
-    }
-
-  }
-
-  /**
-   * Create a request for the method "insertHotel".
-   *
-   * This request holds the parameters needed by the the bookingendpoint server.  After setting any
-   * optional parameters, call the {@link InsertHotel#execute()} method to invoke the remote
-   * operation.
-   *
-   * @param content the {@link com.appspot.api.services.bookingendpoint.model.Hotel}
-   * @return the request
-   * @throws IOException if the initialization of the request fails
-   */
-  public InsertHotel insertHotel(com.appspot.api.services.bookingendpoint.model.Hotel content) throws IOException {
-    InsertHotel result = new InsertHotel(content);
-    initialize(result);
-    return result;
-  }
-
-  public class InsertHotel extends BookingendpointRequest {
-
-    private static final String REST_PATH = "hotel";
-
-    /**
-     * Internal constructor.  Use the convenience method instead.
-     */
-    InsertHotel(com.appspot.api.services.bookingendpoint.model.Hotel content) {
-      super(Bookingendpoint.this, HttpMethod.POST, REST_PATH, content);
-      Preconditions.checkNotNull(content);
-    }
-
-    /**
-     * Sends the "insertHotel" request to the Bookingendpoint server.
-     *
-     * @return the {@link com.appspot.api.services.bookingendpoint.model.Hotel} response
-     * @throws IOException if the request fails
-     */
-    public com.appspot.api.services.bookingendpoint.model.Hotel execute() throws IOException {
-      HttpResponse response = executeUnparsed();
-      com.appspot.api.services.bookingendpoint.model.Hotel result = response.parseAs(
-          com.appspot.api.services.bookingendpoint.model.Hotel.class);
-      result.setResponseHeaders(response.getHeaders());
-      return result;
-    }
-
-    /**
-     * Queues the "insertHotel" request to the Bookingendpoint server into the given batch request.
-     *
-     * <p>
-     * Example usage:
-     * </p>
-     *
-     * <pre>
-       request.queue(batchRequest, new JsonBatchCallback&lt;Hotel&gt;() {
-
-         public void onSuccess(Hotel content, GoogleHeaders responseHeaders) {
-           log("Success");
-         }
-
-         public void onFailure(GoogleJsonError e, GoogleHeaders responseHeaders) {
-           log(e.getMessage());
-         }
-       });
-     * </pre>
-     *
-     * @param batch a single batch of requests
-     * @param callback batch callback
-     * @since 1.6
-     */
-    public void queue(com.google.api.client.googleapis.batch.BatchRequest batch,
-        com.google.api.client.googleapis.batch.json.JsonBatchCallback<com.appspot.api.services.bookingendpoint.model.Hotel> callback)
-        throws IOException {
-      batch.queue(buildHttpRequest(), com.appspot.api.services.bookingendpoint.model.Hotel.class,
-          com.google.api.client.googleapis.json.GoogleJsonErrorContainer.class, callback);
-    }
-
-    /**
-     * @since 1.7
-     */
-    @Override
-    public InsertHotel setFields(String fields) {
-      super.setFields(fields);
-      return this;
-    }
-
-  }
-
-  /**
-   * Create a request for the method "getDashboard".
-   *
-   * This request holds the parameters needed by the the bookingendpoint server.  After setting any
-   * optional parameters, call the {@link GetDashboard#execute()} method to invoke the remote
-   * operation.
+   * optional parameters, call the {@link Dashboard#execute()} method to invoke the remote operation.
    *
    * @return the request
    * @throws IOException if the initialization of the request fails
    */
-  public GetDashboard getDashboard() throws IOException {
-    GetDashboard result = new GetDashboard();
+  public Dashboard dashboard() throws IOException {
+    Dashboard result = new Dashboard();
     initialize(result);
     return result;
   }
 
-  public class GetDashboard extends BookingendpointRequest {
+  public class Dashboard extends BookingendpointRequest {
 
     private static final String REST_PATH = "dashboard";
 
     /**
      * Internal constructor.  Use the convenience method instead.
      */
-    GetDashboard() {
+    Dashboard() {
       super(Bookingendpoint.this, HttpMethod.GET, REST_PATH, null);
     }
 
     /**
-     * Sends the "getDashboard" request to the Bookingendpoint server.
+     * Sends the "dashboard" request to the Bookingendpoint server.
      *
      * @return the {@link com.appspot.api.services.bookingendpoint.model.Dashboard} response
      * @throws IOException if the request fails
@@ -1401,7 +1678,7 @@ public class Bookingendpoint extends GoogleClient {
     }
 
     /**
-     * Queues the "getDashboard" request to the Bookingendpoint server into the given batch request.
+     * Queues the "dashboard" request to the Bookingendpoint server into the given batch request.
      *
      * <p>
      * Example usage:
@@ -1435,189 +1712,7 @@ public class Bookingendpoint extends GoogleClient {
      * @since 1.7
      */
     @Override
-    public GetDashboard setFields(String fields) {
-      super.setFields(fields);
-      return this;
-    }
-
-  }
-
-  /**
-   * Create a request for the method "removeHotel".
-   *
-   * This request holds the parameters needed by the the bookingendpoint server.  After setting any
-   * optional parameters, call the {@link RemoveHotel#execute()} method to invoke the remote
-   * operation.
-   *
-   * @param id
-   * @return the request
-   * @throws IOException if the initialization of the request fails
-   */
-  public RemoveHotel removeHotel(String id) throws IOException {
-    RemoveHotel result = new RemoveHotel(id);
-    initialize(result);
-    return result;
-  }
-
-  public class RemoveHotel extends BookingendpointRequest {
-
-    private static final String REST_PATH = "hotel/{id}";
-
-    /**
-     * Internal constructor.  Use the convenience method instead.
-     */
-    RemoveHotel(String id) {
-      super(Bookingendpoint.this, HttpMethod.DELETE, REST_PATH, null);
-      this.id = Preconditions.checkNotNull(id, "Required parameter id must be specified.");
-    }
-
-    /**
-     * Sends the "removeHotel" request to the Bookingendpoint server.
-     *
-     * @return the {@link com.appspot.api.services.bookingendpoint.model.Hotel} response
-     * @throws IOException if the request fails
-     */
-    public com.appspot.api.services.bookingendpoint.model.Hotel execute() throws IOException {
-      HttpResponse response = executeUnparsed();
-      com.appspot.api.services.bookingendpoint.model.Hotel result = response.parseAs(
-          com.appspot.api.services.bookingendpoint.model.Hotel.class);
-      result.setResponseHeaders(response.getHeaders());
-      return result;
-    }
-
-    /**
-     * Queues the "removeHotel" request to the Bookingendpoint server into the given batch request.
-     *
-     * <p>
-     * Example usage:
-     * </p>
-     *
-     * <pre>
-       request.queue(batchRequest, new JsonBatchCallback&lt;Hotel&gt;() {
-
-         public void onSuccess(Hotel content, GoogleHeaders responseHeaders) {
-           log("Success");
-         }
-
-         public void onFailure(GoogleJsonError e, GoogleHeaders responseHeaders) {
-           log(e.getMessage());
-         }
-       });
-     * </pre>
-     *
-     * @param batch a single batch of requests
-     * @param callback batch callback
-     * @since 1.6
-     */
-    public void queue(com.google.api.client.googleapis.batch.BatchRequest batch,
-        com.google.api.client.googleapis.batch.json.JsonBatchCallback<com.appspot.api.services.bookingendpoint.model.Hotel> callback)
-        throws IOException {
-      batch.queue(buildHttpRequest(), com.appspot.api.services.bookingendpoint.model.Hotel.class,
-          com.google.api.client.googleapis.json.GoogleJsonErrorContainer.class, callback);
-    }
-
-    /**
-     * @since 1.7
-     */
-    @Override
-    public RemoveHotel setFields(String fields) {
-      super.setFields(fields);
-      return this;
-    }
-
-    @com.google.api.client.util.Key
-    private String id;
-
-    /**
-
-     */
-    public String getId() {
-      return id;
-    }
-
-    public RemoveHotel setId(String id) {
-      this.id = id;
-      return this;
-    }
-
-  }
-
-  /**
-   * Create a request for the method "listHotel".
-   *
-   * This request holds the parameters needed by the the bookingendpoint server.  After setting any
-   * optional parameters, call the {@link ListHotel#execute()} method to invoke the remote operation.
-   *
-   * @return the request
-   * @throws IOException if the initialization of the request fails
-   */
-  public ListHotel listHotel() throws IOException {
-    ListHotel result = new ListHotel();
-    initialize(result);
-    return result;
-  }
-
-  public class ListHotel extends BookingendpointRequest {
-
-    private static final String REST_PATH = "hotel";
-
-    /**
-     * Internal constructor.  Use the convenience method instead.
-     */
-    ListHotel() {
-      super(Bookingendpoint.this, HttpMethod.GET, REST_PATH, null);
-    }
-
-    /**
-     * Sends the "listHotel" request to the Bookingendpoint server.
-     *
-     * @return the {@link com.appspot.api.services.bookingendpoint.model.Hotels} response
-     * @throws IOException if the request fails
-     */
-    public com.appspot.api.services.bookingendpoint.model.Hotels execute() throws IOException {
-      HttpResponse response = executeUnparsed();
-      com.appspot.api.services.bookingendpoint.model.Hotels result = response.parseAs(
-          com.appspot.api.services.bookingendpoint.model.Hotels.class);
-      result.setResponseHeaders(response.getHeaders());
-      return result;
-    }
-
-    /**
-     * Queues the "listHotel" request to the Bookingendpoint server into the given batch request.
-     *
-     * <p>
-     * Example usage:
-     * </p>
-     *
-     * <pre>
-       request.queue(batchRequest, new JsonBatchCallback&lt;Hotels&gt;() {
-
-         public void onSuccess(Hotels content, GoogleHeaders responseHeaders) {
-           log("Success");
-         }
-
-         public void onFailure(GoogleJsonError e, GoogleHeaders responseHeaders) {
-           log(e.getMessage());
-         }
-       });
-     * </pre>
-     *
-     * @param batch a single batch of requests
-     * @param callback batch callback
-     * @since 1.6
-     */
-    public void queue(com.google.api.client.googleapis.batch.BatchRequest batch,
-        com.google.api.client.googleapis.batch.json.JsonBatchCallback<com.appspot.api.services.bookingendpoint.model.Hotels> callback)
-        throws IOException {
-      batch.queue(buildHttpRequest(), com.appspot.api.services.bookingendpoint.model.Hotels.class,
-          com.google.api.client.googleapis.json.GoogleJsonErrorContainer.class, callback);
-    }
-
-    /**
-     * @since 1.7
-     */
-    @Override
-    public ListHotel setFields(String fields) {
+    public Dashboard setFields(String fields) {
       super.setFields(fields);
       return this;
     }

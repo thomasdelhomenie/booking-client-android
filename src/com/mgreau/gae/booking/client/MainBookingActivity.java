@@ -55,7 +55,7 @@ public class MainBookingActivity extends Activity {
 		protected Dashboard doInBackground(Void... unused) {
 			Dashboard dashboard = null;
 			try {
-				dashboard = service.getDashboard().execute();
+				dashboard = service.dashboard().execute();
 			} catch (IOException e) {
 				Log.d("Booking Client Endpoints", e.getMessage(), e);
 			}
