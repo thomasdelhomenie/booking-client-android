@@ -2,6 +2,7 @@ package com.mgreau.gae.booking.client;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,11 +10,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.appspot.api.services.bookingendpoint.Bookingendpoint;
+import com.appspot.api.services.bookingendpoint.Bookingendpoint.Hotels;
 import com.appspot.api.services.bookingendpoint.model.Dashboard;
+import com.appspot.api.services.bookingendpoint.model.Hotel;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -45,27 +49,36 @@ public class MainBookingActivity extends Activity {
 		new DashboardTask(this).execute();
 	}
 
-	private class DashboardTask extends AsyncTask<Void, Void, Dashboard> {
+	private class DashboardTask extends AsyncTask<Void, Void, Boolean> {
 		Context context;
+		
+		Dashboard dashboard = null;
+		List<Hotel> hotels = null;
 
 		public DashboardTask(Context context) {
 			this.context = context;
 		}
 
-		protected Dashboard doInBackground(Void... unused) {
-			Dashboard dashboard = null;
+		protected Boolean doInBackground(Void... unused) {			
 			try {
 				dashboard = service.dashboard().execute();
+				hotels = service.hotels().list().execute().getItems();
 			} catch (IOException e) {
 				Log.d("Booking Client Endpoints", e.getMessage(), e);
 			}
-			return dashboard;
+			return true;
 		}
 
-		protected void onPostExecute(Dashboard dashboard) {
-			TextView text = (TextView)findViewById(R.id.dashboard);
-			if (dashboard != null)
-			text.setText(dashboard.getNbHotels() + " / " + dashboard.getCityList() + " / " + dashboard.getCountryList());
+		@Override
+		protected void onPostExecute(Boolean result) {
+			TextView textNbHotels = (TextView) findViewById(R.id.nbHotels);
+			ListView listView = (ListView) findViewById(R.id.hotelsListView);
+			
+			if (dashboard != null) {
+				textNbHotels.setText(dashboard.getNbHotels() + " hôtels");
+			}
+			
+			listView.setAdapter(new HotelAdapter(context, hotels));
 		}
 	}
 
