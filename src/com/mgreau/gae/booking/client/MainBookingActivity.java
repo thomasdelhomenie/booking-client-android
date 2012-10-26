@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -74,9 +75,7 @@ public class MainBookingActivity extends Activity {
 			TextView textNbHotels = (TextView) findViewById(R.id.nbHotels);
 			ListView listView = (ListView) findViewById(R.id.hotelsListView);
 			
-			if (dashboard != null) {
-				textNbHotels.setText(dashboard.getNbHotels() + " hôtels");
-			}
+			textNbHotels.setVisibility(View.GONE);
 			
 			listView.setAdapter(new HotelAdapter(context, hotels));
 		}

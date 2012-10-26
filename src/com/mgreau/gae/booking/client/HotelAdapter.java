@@ -1,11 +1,12 @@
 package com.mgreau.gae.booking.client;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.appspot.api.services.bookingendpoint.Bookingendpoint.Hotels;
 import com.appspot.api.services.bookingendpoint.model.Hotel;
 
 public class HotelAdapter extends BaseAdapter {
@@ -47,12 +47,16 @@ public class HotelAdapter extends BaseAdapter {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView = inflater.inflate(R.layout.booking_hotel_item, parent, false);
 		ImageView imageView = (ImageView) rowView.findViewById(R.id.imageHotel);
-		TextView textView = (TextView) rowView.findViewById(R.id.textHotel);
+		TextView hotelNameTextView = (TextView) rowView.findViewById(R.id.textHotelName);
+		TextView hotelCityTextView = (TextView) rowView.findViewById(R.id.textHotelCity);
 		
 		Hotel hotel = hotels.get(position);
-		textView.setText(hotel.getHotelName());
+		hotelNameTextView.setText(hotel.getHotelName());
+		hotelCityTextView.setText(hotel.getCity() + ", " + hotel.getCountry());
 		if(hotel.getImage() != null && hotel.getImage().getValue() != null) {
-			imageView.setImageURI(Uri.parse(hotel.getImage().getValue()));
+			byte[] decodedString = Base64.decode(hotel.getImage().getValue(), Base64.DEFAULT);
+			Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+			imageView.setImageBitmap(decodedByte);
 		}
 
 		return rowView;
