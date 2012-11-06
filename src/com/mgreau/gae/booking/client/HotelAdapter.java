@@ -20,11 +20,15 @@ public class HotelAdapter extends BaseAdapter {
 
 	private final Context context;
 	private List<Hotel> hotels;
+	
+	public ImageLoader imageLoader; 
 
 	public HotelAdapter(Context context, List<Hotel> hotels) {
 		super();
 		this.context = context;
 		this.hotels = hotels;
+		
+		imageLoader=new ImageLoader(context.getApplicationContext());
 	}
 
 	@Override
@@ -53,11 +57,13 @@ public class HotelAdapter extends BaseAdapter {
 		Hotel hotel = hotels.get(position);
 		hotelNameTextView.setText(hotel.getHotelName());
 		hotelCityTextView.setText(hotel.getCity() + ", " + hotel.getCountry());
-		if(hotel.getImage() != null && hotel.getImage().getValue() != null) {
-			byte[] decodedString = Base64.decode(hotel.getImage().getValue(), Base64.DEFAULT);
-			Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-			imageView.setImageBitmap(decodedByte);
-		}
+		
+		imageLoader.DisplayImage(hotel.getImage().getValue(), imageView);
+//		if(hotel.getImage() != null && hotel.getImage().getValue() != null) {
+//			byte[] decodedString = Base64.decode(hotel.getImage().getValue(), Base64.DEFAULT);
+//			Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//			imageView.setImageBitmap(decodedByte);
+//		}
 
 		return rowView;
 	}
