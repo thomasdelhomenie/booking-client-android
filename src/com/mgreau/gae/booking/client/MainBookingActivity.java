@@ -6,18 +6,20 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.appspot.api.services.bookingendpoint.Bookingendpoint;
 import com.appspot.api.services.bookingendpoint.model.CollectionResponseHotel;
-import com.appspot.api.services.bookingendpoint.model.Dashboard;
 import com.appspot.api.services.bookingendpoint.model.Hotel;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.http.HttpTransport;
@@ -43,6 +45,22 @@ public class MainBookingActivity extends Activity {
 		buttonMore = new Button(this);
 		buttonMore.setText("Plus...");
 		listView.addFooterView(buttonMore);
+		
+		// listening to single list item on click
+		listView.setOnItemClickListener(new OnItemClickListener() {
+          public void onItemClick(AdapterView<?> parent, View view,
+              int position, long id) {
+ 
+              // selected item
+              Hotel hotel = hotels.get(position);
+              // Launching new Activity on selecting single List Item
+              Intent i = new Intent(getApplicationContext(), HotelActivity.class);
+              // sending data to new activity
+              i.putExtra("hotel", String.valueOf(hotel.getId()));
+              startActivity(i);
+ 
+          }
+        });
 		
 		buttonMore.setOnClickListener(new View.OnClickListener() {
 		    @Override
